@@ -1,0 +1,7 @@
+#foreach( $column in ${modelData.dbtable.primaryKeyColumns})
+#validatorInfo($column)
+#end
+
+#foreach( $column in ${modelData.dbtable.baseColumns})
+#validatorInfo($column)
+#end

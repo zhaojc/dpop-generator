@@ -1,0 +1,24 @@
+#printCopyright()
+
+package ${modelData.serviceImplPackage};
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.baidu.dpop.frame.core.base.BaseService;
+import com.baidu.dpop.frame.core.base.GenericMapperDao;
+import ${modelData.boPackage}.${modelData.dbtable.boName};
+import ${modelData.daoPackage}.${modelData.dbtable.boName}Dao;
+import ${modelData.servicePackage}.${modelData.dbtable.boName}Service;
+
+@Service
+public class ${modelData.dbtable.boName}ServiceImpl extends BaseService<${modelData.dbtable.boName}, Long> implements ${modelData.dbtable.boName}Service {
+
+	@Autowired
+	private ${modelData.dbtable.boName}Dao ${modelData.dbtable.moduleName}Dao;
+	
+	@Override
+	public GenericMapperDao<${modelData.dbtable.boName}, Long> getDao() {
+		return ${modelData.dbtable.moduleName}Dao;
+	}
+}

@@ -1,0 +1,59 @@
+#printCopyright()
+
+package ${modelData.controllerPackage};
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.baidu.dpop.frame.core.base.web.JsonBaseController;
+import com.baidu.dpop.frame.core.base.web.JsonResult;
+
+import ${modelData.boPackage}.${modelData.dbtable.boName};
+import ${modelData.servicePackage}.${modelData.dbtable.boName}Service;
+
+@Controller
+@RequestMapping(value = "/${modelData.dbtable.moduleName}")
+public class ${modelData.dbtable.boName}Controller extends JsonBaseController {
+
+    @Autowired
+    ${modelData.dbtable.boName}Service ${modelData.dbtable.moduleName}Service;
+    
+    
+    @RequestMapping(value = "/find.do", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResult find(Long id) {
+        ${modelData.dbtable.boName} boData = ${modelData.dbtable.moduleName}Service.findById(id);
+        return this.markSuccessResult(boData, "查找成功");
+    }
+    
+    @RequestMapping(value = "/create.do", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResult create(${modelData.dbtable.boName}Form form ,Errors errors) {
+        if(errors.hasErrors()){
+            return this.markErrorResult(errors);
+        }
+        
+        ${modelData.dbtable.boName} boData = form.transformBO();
+        ${modelData.dbtable.moduleName}Service.insert(boData);
+        
+        return this.markSuccessResult(boData, "创建成功");
+    }
+    
+    @RequestMapping(value = "/update.do", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResult update(${modelData.dbtable.boName}Form form ,Errors errors) {
+        if(errors.hasErrors()){
+            return this.markErrorResult(errors);
+        }
+        ${modelData.dbtable.boName} boData = form.transformBO();
+        ${modelData.dbtable.moduleName}Service.updateById(boData);
+        
+        return this.markSuccessResult(boData, "修改成功");
+    }
+    
+}

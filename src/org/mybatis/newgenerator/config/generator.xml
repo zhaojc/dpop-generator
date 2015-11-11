@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<generators  batisVersion = "MyBatis3" >
+
+	<project:base>
+		<!-- 生成代码存放路径 -->
+		<property name="targetPath"  value="E:\temp"/>
+		<!-- 工程的顶层包名 -->
+		<property name="rootPackage" value="com.baidu.dpop.rmp"/>
+		<property name="boPackage" value="${rootPackage}.${modulename}.bo"/>
+		<property name="mapperPackage" value="${rootPackage}.${modulename}.dao.mapper"/>
+		<property name="daoPackage" value="${rootPackage}.${modulename}.dao"/>
+		<property name="daoImplPackage" value="${rootPackage}.${modulename}.dao.impl"/>
+		<property name="servicePackage" value="${rootPackage}.${modulename}.service"/>
+		<property name="serviceImplPackage" value="${rootPackage}.${modulename}.service.impl"/>
+		<property name="controllerPackage" value="${rootPackage}.${modulename}.web.controller"/>
+		<property name="validatorPackage" value="${rootPackage}.${modulename}.web.validator"/>
+		
+		<!-- 修改表格字段时候：<property name="generators" 	value="bo-base,mapperxml-base"></property> -->
+		<!-- 新建表格的时候：     <property name="generators" 	value="bo,bo-base,mapper,mapperxml,mapperxml-base,dao,dao-ipml,service,service-impl,controller,form,validator"></property> -->
+		<!--  <property name="generators" 	value="mapperxml-base"></property> -->
+	</project:base>
+	
+	<project:driver>
+		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+		<property name="connectionURL" value="jdbc:mysql://10.46.133.67:8866/os_test"></property>
+		<property name="username" value="crm"></property>
+		<property name="password" value="123456"></property>
+	</project:driver>
+	
+	<project:table>
+		<!-- 表名 -->
+		<property name="tablename"  value="tb_user"></property>
+		<!-- 模块名称，生成java代码包路径的时候需要替换，不能大写 -->
+		<property name="modulename" value="user"></property>
+		<!-- 模型的BO名称，生成java代码BO名称，不填写的时候是表名驼峰规则转化而来 -->
+		<property name="boname" 	value="User"></property>
+	</project:table>
+	
+
+	<project:table >
+		<property name="tablename"  value="tb_cust"></property>
+		<property name="modulename" value="cust"></property>
+		<property name="boname" 	value="Cust"></property>
+	</project:table>
+	
+	<project:table >
+		<property name="tablename"  value="tb_os_status"></property>
+		<property name="modulename" value="osstatus"></property>
+		<property name="boname" 	value="OsStatus"></property>
+	</project:table>
+	
+	
+	<project:table >
+		<property name="tablename"  value="tb_opp_turn_out_info"></property>
+		<property name="modulename" value="turnout"></property>
+		<property name="boname" 	value="OppTurnOutInfo"></property>
+	</project:table>
+	
+	<project:table >
+		<property name="tablename"  value="tb_os_status_old"></property>
+		<property name="modulename" value="oldosstatus"></property>
+		<property name="boname" 	value="OldOSStatus"></property>
+	</project:table>
+	
+	
+</generators>

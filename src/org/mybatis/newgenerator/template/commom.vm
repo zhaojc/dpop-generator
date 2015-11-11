@@ -1,0 +1,86 @@
+#set($MYBATIS="#")
+##打印字段信息
+#macro (printCopyright)
+
+/*
+* Copyright 2014 baidu dpop
+* All right reserved.
+*
+*/
+#end
+
+#macro (printField $column)
+    private $!{column.javaTypeName} $!{column.javaBeanFieldName};
+#end
+
+#macro (printFieldGetter $column)
+	public $!{column.javaTypeName} get$!{column.toUpperCaseFieldName()}(){
+		return this.$!{column.javaBeanFieldName};
+	}
+#end
+
+
+#macro (printFieldSetter $column)
+	public void set$!{column.toUpperCaseFieldName()}($!{column.javaTypeName} $!{column.javaBeanFieldName}){
+		this.$!{column.javaBeanFieldName} = $!{column.javaBeanFieldName};
+	}
+#end
+
+##打印字段信息
+#macro (printBoField $column)
+
+   /**
+    * ${column.remarks} 
+    */	
+#printField($column)
+#end
+
+##打印字段getter 和 setter
+#macro (printBoGetterSetter $column)
+
+	/**
+    * ${column.remarks}
+	* @param $!{column.javaBeanFieldName} the value for $!{column.dbTableColumnName}
+    */	
+#printFieldSetter($column)
+	
+	/**
+    * ${column.remarks}
+	* @return $!{column.javaBeanFieldName} the value for $!{column.dbTableColumnName}
+    */
+#printFieldGetter($column)
+#end
+
+
+#macro (notnullKey $column)${column.moduleName}.${column.javaBeanFieldName}.notnull#end
+
+#macro (rangeKey $column)${column.moduleName}.${column.javaBeanFieldName}.range#end
+
+#macro (validatorInfo $column)
+#if(false == ${column.nullable})
+#notnullKey($column)=${column.remarks} can not be null
+#end
+#if($!{column.length} && "String" == ${column.javaTypeName})
+#rangeKey($column)=${column.remarks}length between 0-$!{column.length}
+#end	
+#end
+
+##打印字段信息
+#macro (printFormField $column)
+	//${column.remarks}
+#if(false == ${column.nullable})
+    @NotBlank(message="#notnullKey($column)")
+#end
+#if($!{column.length} && "String" == ${column.javaTypeName})
+    @Range(min=0,max=$!{column.length},message="#rangeKey($column)")
+#end
+#printField($column) 
+#end
+
+##打印字段getter 和 setter
+#macro (printFormGetterSetter $column)
+
+#printFieldSetter($column)
+
+#printFieldGetter($column)
+#end

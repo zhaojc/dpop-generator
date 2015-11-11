@@ -1,0 +1,26 @@
+#printCopyright()
+
+package $!{modelData.daoImplPackage};
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.baidu.dpop.frame.core.base.BaseDao;
+import com.baidu.dpop.frame.core.base.GenericMapper;
+
+import ${modelData.boPackage}.${modelData.dbtable.boName};
+import ${modelData.daoPackage}.${modelData.dbtable.boName}Dao;
+import ${modelData.mapperPackage}.${modelData.dbtable.boName}Mapper;
+
+@Repository
+public class ${modelData.dbtable.boName}DaoImpl extends BaseDao<${modelData.dbtable.boName}, Long>  implements ${modelData.dbtable.boName}Dao {
+
+	@Autowired
+	private ${modelData.dbtable.boName}Mapper ${modelData.dbtable.moduleName}Mapper;
+	
+	@Override
+	public GenericMapper<${modelData.dbtable.boName}, Long> getMapper() {
+		return this.${modelData.dbtable.moduleName}Mapper;
+	}
+
+}

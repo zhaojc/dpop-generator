@@ -1,0 +1,11 @@
+#printCopyright()
+
+package ${modelData.servicePackage};
+
+import com.baidu.dpop.frame.core.base.GenericMapperService;
+import ${modelData.boPackage}.${modelData.dbtable.boName};
+
+
+public interface ${modelData.dbtable.boName}Service extends GenericMapperService<${modelData.dbtable.boName},Long>{
+
+}

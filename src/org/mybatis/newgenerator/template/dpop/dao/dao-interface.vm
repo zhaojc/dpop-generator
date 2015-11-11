@@ -1,0 +1,10 @@
+#printCopyright()
+
+package ${modelData.daoPackage};
+
+import com.baidu.dpop.frame.core.base.GenericMapperDao;
+import ${modelData.boPackage}.${modelData.dbtable.boName};
+
+public interface ${modelData.dbtable.boName}Dao extends GenericMapperDao<${modelData.dbtable.boName}, Long> {
+	
+}

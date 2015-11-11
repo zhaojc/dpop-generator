@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<generators name="dmp" batisVersion = "MyBatis3" >
+	<project:base>
+		<property name="rootPackage" value="com.baidu.amp"/>
+		<property name="targetPath"  value="C:\test\src\main\java"/>
+		<property name="boPackage" value="${rootPackage}.${modulename}.bo"/>
+		<property name="mapperPackage" value="${rootPackage}.${modulename}.dao.mapper"/>
+		<property name="daoPackage" value="${rootPackage}.${modulename}.dao"/>
+		<property name="daoImplPackage" value="${rootPackage}.${modulename}.dao.impl"/>
+		<property name="servicePackage" value="${rootPackage}.${modulename}.service"/>
+		<property name="serviceImplPackage" value="${rootPackage}.${modulename}.service.impl"/>
+		
+		<!-- 修改表格字段时候：<property name="generators" 	value="bo-base,mapperxml-base"></property> -->
+		<!-- 新建表格的时候：    不配置 或者 <property name="generators" 	value="bo,bo-base,mapper,mapperxml,mapperxml-base,dao,dao-ipml,service,service-impl"></property> -->
+		<property name="generators" 	value="bo,bo-base,mapper,mapperxml,mapperxml-base,dao,dao-impl,service,service-impl"></property>
+	</project:base>
+	
+	<project:driver>
+		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+		<property name="connectionURL" value="jdbc:mysql://10.46.133.67:8866/os_test"></property>
+		<property name="username" value="crm"></property>
+		<property name="password" value="123456"></property>
+	</project:driver>
+	
+	<project:table>
+		<property name="tablename"  value="tb_user"></property>
+		<property name="modulename" value="user"></property>
+		<property name="boname" 	value="User"></property>
+	</project:table>
+	
+	
+	<project:table >
+		<property name="tablename"  value="tb_cust"></property>
+		<property name="modulename" value="cust"></property>
+		<property name="boname" 	value="Cust"></property>
+	</project:table>
+	
+</generators>

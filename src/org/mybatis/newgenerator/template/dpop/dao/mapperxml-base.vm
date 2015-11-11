@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${modelData.mapperPackage}.${modelData.dbtable.boName}Mapper">
+
+  <resultMap id="BaseResultMap" type="$!{modelData.boPackage}.${modelData.dbtable.boName}">
+	#foreach( $column in ${modelData.dbtable.primaryKeyColumns})
+		<id     column="$!{column.dbTableColumnName}"		jdbcType="$!{column.jdbcTypeName}"		property="$!{column.javaBeanFieldName}" />
+	#end #foreach( $column in ${modelData.dbtable.baseColumns})
+		<result column="$!{column.dbTableColumnName}"		jdbcType="$!{column.jdbcTypeName}"		property="$!{column.javaBeanFieldName}" />
+	#end
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+	#foreach($column in ${modelData.dbtable.primaryKeyColumns})$!{column.dbTableColumnName},#end #set($columIdex = 1)#foreach($column in ${modelData.dbtable.baseColumns})$!{column.dbTableColumnName}#if($!{columIdex} < $!{modelData.dbtable.baseColumns.size()}),#end#set($columIdex = $columIdex + 1)#end
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from $!{modelData.dbtable.dbTableName}
+    where 1=1 #foreach($column in ${modelData.dbtable.primaryKeyColumns}) and $!{column.dbTableColumnName} = #{$!{column.javaBeanFieldName},jdbcType=$!{column.jdbcTypeName}}#end
+
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from $!{modelData.dbtable.dbTableName}
+    where 1=1 #foreach($column in ${modelData.dbtable.primaryKeyColumns})and $!{column.dbTableColumnName} = #{$!{column.javaBeanFieldName},jdbcType=$!{column.jdbcTypeName}}#end
+  </delete>
+  
+  <insert id="insert" parameterType="$!{modelData.boPackage}.${modelData.dbtable.boName}" useGeneratedKeys="true" keyProperty="${modelData.dbtable.primaryKeyColumns.get(0).dbTableColumnName}">
+    insert into $!{modelData.dbtable.dbTableName} 
+	(#foreach($column in ${modelData.dbtable.primaryKeyColumns})$!{column.dbTableColumnName},#end #set($columIdex = 1)#foreach($column in ${modelData.dbtable.baseColumns}) $!{column.dbTableColumnName}#if($!{columIdex} < $!{modelData.dbtable.baseColumns.size()}),#end#set($columIdex = $columIdex + 1)#end)
+    values 
+	(#foreach($column in ${modelData.dbtable.primaryKeyColumns}) #{$!{column.javaBeanFieldName},jdbcType=$!{column.jdbcTypeName}},#end#set($columIdex = 1)#foreach($column in ${modelData.dbtable.baseColumns})#{$!{column.javaBeanFieldName},jdbcType=$!{column.jdbcTypeName}}#if($!{columIdex} < $!{modelData.dbtable.baseColumns.size()}),#end#set($columIdex = $columIdex + 1)#end)
+  </insert>
+  
+  <insert id="insertSelective" parameterType="$!{modelData.boPackage}.${modelData.dbtable.boName}" useGeneratedKeys="true" keyProperty="${modelData.dbtable.primaryKeyColumns.get(0).dbTableColumnName}">
+    insert into $!{modelData.dbtable.dbTableName}
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+	#foreach( $column in ${modelData.dbtable.primaryKeyColumns})
+	
+	  <if test="$!{column.javaBeanFieldName} != null">
+        $!{column.dbTableColumnName},
+      </if>
+	#end
+	#foreach( $column in ${modelData.dbtable.baseColumns})
+		
+	  <if test="$!{column.javaBeanFieldName} != null">
+        $!{column.dbTableColumnName},
+      </if>
+	#end
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+	#foreach( $column in ${modelData.dbtable.primaryKeyColumns})
+		
+	  <if test="$!{column.javaBeanFieldName} != null">
+         #{$!{column.javaBeanFieldName},jdbcType=$!{column.jdbcTypeName}},
+      </if>
+	#end
+	#foreach( $column in ${modelData.dbtable.baseColumns})
+		
+	  <if test="$!{column.javaBeanFieldName} != null">
+         #{$!{column.javaBeanFieldName},jdbcType=$!{column.jdbcTypeName}},
+      </if>
+	#end
+    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="$!{modelData.boPackage}.${modelData.dbtable.boName}">
+    update $!{modelData.dbtable.dbTableName}
+    <set>#foreach( $column in ${modelData.dbtable.baseColumns})
+      <if test="$!{column.javaBeanFieldName} != null">
+        $!{column.dbTableColumnName} = #{$!{column.javaBeanFieldName},jdbcType=$!{column.jdbcTypeName}},
+      </if>
+	  #end
+    </set>
+    where 1=1 #foreach($column in ${modelData.dbtable.primaryKeyColumns})and $!{column.dbTableColumnName} = #{$!{column.javaBeanFieldName},jdbcType=$!{column.jdbcTypeName}}#end
+  
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="$!{modelData.boPackage}.${modelData.dbtable.boName}">
+    update $!{modelData.dbtable.dbTableName}
+    set 
+    #set($columIdex = 1) #foreach( $column in ${modelData.dbtable.baseColumns})
+	$!{column.dbTableColumnName} = #{$!{column.javaBeanFieldName},jdbcType=$!{column.jdbcTypeName}}#if($!{columIdex} < $!{modelData.dbtable.baseColumns.size()}),#end#set($columIdex = $columIdex + 1)
+
+    #end
+    where 1=1 #foreach($column in ${modelData.dbtable.primaryKeyColumns})and $!{column.dbTableColumnName} = #{$!{column.javaBeanFieldName},jdbcType=$!{column.jdbcTypeName}}#end
+  
+  </update>
+
+</mapper>

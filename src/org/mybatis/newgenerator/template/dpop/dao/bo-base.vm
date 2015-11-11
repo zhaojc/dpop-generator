@@ -1,0 +1,24 @@
+#printCopyright()
+package $!{modelData.boPackage};
+
+import java.util.Date;
+
+/**
+* ${modelData.dbtable.remarks}
+*/	
+public class ${modelData.dbtable.boName}Base implements java.io.Serializable{
+
+#foreach( $column in ${modelData.dbtable.primaryKeyColumns})
+#printBoField($column)
+#end
+#foreach( $column in ${modelData.dbtable.baseColumns})
+#printBoField($column)
+#end
+
+#foreach( $column in ${modelData.dbtable.primaryKeyColumns})
+#printBoGetterSetter($column)
+#end
+#foreach( $column in ${modelData.dbtable.baseColumns})
+#printBoGetterSetter($column)
+#end
+}

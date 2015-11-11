@@ -1,0 +1,9 @@
+#printCopyright()
+package $!{modelData.boPackage};
+
+/**
+* ${modelData.dbtable.remarks}
+*/	
+public class ${modelData.dbtable.boName} extends ${modelData.dbtable.boName}Base{
+  
+}
